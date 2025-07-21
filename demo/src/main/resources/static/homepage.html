@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusNav Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #e64a19;
+            --secondary-color: #bf360c;
+            --accent-color: #ff5722;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--light-color);
+        }
+
+        /* Header */
+        .dashboard-header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-container img {
+            height: 40px;
+            margin-right: 15px;
+        }
+
+        .user-controls {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            margin-left: 30px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        /* Main Layout */
+        .dashboard-container {
+            display: flex;
+            min-height: calc(100vh - 70px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: var(--dark-color);
+            color: white;
+            padding: 20px 0;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            padding: 15px 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar-menu li:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .sidebar-menu li i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-menu li.active {
+            background-color: var(--primary-color);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            background-color: #f5f5f5;
+        }
+
+        .welcome-banner {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .welcome-banner h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .action-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .action-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .action-card i {
+            font-size: 30px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        /* Campus Map Preview */
+        .map-preview {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .map-preview h2 {
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+
+        .map-placeholder {
+            height: 300px;
+            background-color: #eee;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #777;
+        }
+
+        /* Recent Activity */
+        .activity-feed {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .activity-item {
+            display: flex;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--primary-color);
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-time {
+            color: #777;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .dashboard-container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Dashboard Header -->
+    <header class="dashboard-header">
+        <div class="logo-container">
+            <img src="campnav.png" alt="CampusNav Logo">
+            <h1>CampusNav</h1>
+        </div>
+        
+        <div class="user-controls">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search campus...">
+            </div>
+            
+            <div class="user-profile">
+                <div class="user-avatar">JD</div>
+                <div class="user-info">
+                    <div class="user-name">John Doe</div>
+                    <div class="user-role">Student</div>
+                </div>
+                <i class="fas fa-chevron-down" style="margin-left: 10px;"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Dashboard Layout -->
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="active">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </li>
+                <li>
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span>Campus Map</span>
+                </li>
+                <li>
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Events</span>
+                </li>
+                <li>
+                    <i class="fas fa-book"></i>
+                    <span>Resources</span>
+                </li>
+                <li>
+                    <i class="fas fa-bell"></i>
+                    <span>Notifications</span>
+                </li>
+                <li>
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </li>
+                <li>
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Welcome Banner -->
+            <section class="welcome-banner">
+                <h1>Welcome back, John!</h1>
+                <p>Ready to explore your campus today? Here's what's happening.</p>
+            </section>
+
+            <!-- Quick Actions -->
+            <section class="quick-actions">
+                <div class="action-card">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h3>Explore Map</h3>
+                    <p>Navigate through campus buildings</p>
+                </div>
+                <div class="action-card">
+                    <i class="fas fa-calendar-check"></i>
+                    <h3>Today's Events</h3>
+                    <p>3 events scheduled</p>
+                </div>
+                <div class="action-card">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Dining Halls</h3>
+                    <p>See open food options</p>
+                </div>
+                <div class="action-card">
+                    <i class="fas fa-book-open"></i>
+                    <h3>Library</h3>
+                    <p>Check availability</p>
+                </div>
+            </section>
+
+            <!-- Campus Map Preview -->
+            <section class="map-preview">
+                <h2>Your Campus Map</h2>
+                <div class="map-placeholder">
+                    <p>Interactive campus map would appear here</p>
+                </div>
+            </section>
+
+            <!-- Recent Activity -->
+            <section class="activity-feed">
+                <h2>Recent Activity</h2>
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="activity-content">
+                        <h4>You checked in at the Library</h4>
+                        <p>Main Campus Library, 2nd floor</p>
+                        <div class="activity-time">30 minutes ago</div>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-calendar"></i>
+                    </div>
+                    <div class="activity-content">
+                        <h4>New event added to your schedule</h4>
+                        <p>Guest Lecture: AI in Education</p>
+                        <div class="activity-time">2 hours ago</div>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <div class="activity-content">
+                        <h4>Study group formed</h4>
+                        <p>CS-401 Study Group in Cafeteria</p>
+                        <div class="activity-time">Yesterday</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Simulate user data - in real app this would come from authentication
+        const user = {
+            name: "John Doe",
+            initials: "JD",
+            role: "Student",
+            campus: "Main Campus"
+        };
+
+        // Update UI with user data
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set user info
+            document.querySelector('.user-avatar').textContent = user.initials;
+            document.querySelector('.user-name').textContent = user.name;
+            document.querySelector('.user-role').textContent = user.role;
+            document.querySelector('.welcome-banner h1').textContent = `Welcome back, ${user.name.split(' ')[0]}!`;
+
+            // Sidebar menu functionality
+            const menuItems = document.querySelectorAll('.sidebar-menu li');
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    menuItems.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // In a real app, this would load different content
+                    if (this.textContent.includes('Logout')) {
+                        if (confirm('Are you sure you want to logout?')) {
+                            window.location.href = 'FirstPage.html';
+                        }
+                    }
+                });
+            });
+
+            // Quick action cards functionality
+            const actionCards = document.querySelectorAll('.action-card');
+            actionCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const action = this.querySelector('h3').textContent;
+                    alert(`This would open the ${action} feature`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

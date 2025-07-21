@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account Authentication</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet">
+  <style>
+    /* Base Styles */
+    :root {
+      --primary-color: #e64a19; /* Changed from #4361ee to #e64a19 */
+      --secondary-color: #bf360c; /* Darker shade of #e64a19 */
+      --accent-color: #ff5722; /* Complementary shade */
+      --light-color: #f8f9fa;
+      --dark-color: #212529;
+      --success-color: #4cc9f0;
+      --error-color: #f72585;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    body {
+      background-color: var(--light-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      background-size: cover;
+    }
+    
+    /* Container */
+    .auth-container {
+      width: 100%;
+      max-width: 900px;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      display: flex;
+      position: relative;
+      min-height: 550px;
+      backdrop-filter: blur(10px);
+    }
+    
+    /* Forms Section */
+    .forms-section {
+      width: 50%;
+      padding: 40px;
+      transition: all 0.5s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .form-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: all 0.5s ease;
+    }
+    
+    /* Sliding animation styles */
+    #signin-form {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    
+    #signup-form {
+      transform: translateX(120%);
+      opacity: 0;
+    }
+    
+    #forgot-form {
+      transform: translateX(120%);
+      opacity: 0;
+    }
+    
+    #signin-form.slide-out-left {
+      transform: translateX(-120%);
+      opacity: 0;
+    }
+    
+    #signin-form.slide-in-right {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    
+    #signup-form.slide-in-left {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    
+    #signup-form.slide-out-right {
+      transform: translateX(120%);
+      opacity: 0;
+    }
+    
+    #forgot-form.slide-in-left {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    
+    #forgot-form.slide-out-right {
+      transform: translateX(120%);
+      opacity: 0;
+    }
+    
+    /* Form Elements */
+    .form-title {
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--dark-color);
+      margin-bottom: 20px;
+    }
+    
+    .input-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+    
+    .input-group i {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      transform: translateY(-50%);
+      color: var(--dark-color);
+      opacity: 0.7;
+    }
+    
+    .input-field {
+      width: 100%;
+      padding: 12px 15px 12px 45px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.7);
+    }
+    
+    .input-field:focus {
+      border-color: var(--primary-color);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(230, 74, 25, 0.2); /* Updated to match new primary color */
+      background: rgba(255, 255, 255, 0.9);
+    }
+    
+    .btn {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+      margin-top: 10px;
+    }
+    
+    .btn:hover {
+      background-color: var(--secondary-color);
+    }
+    
+    .form-footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+    
+    .form-footer a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    .form-footer a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Banner Section */
+    .banner-section {
+      width: 50%;
+      background: linear-gradient(135deg, rgba(230, 74, 25, 0.85), rgba(191, 54, 12, 0.85)); /* Updated to new color scheme */
+      color: white;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      transition: all 0.5s ease;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+    
+    .banner-logo {
+      width: 200px;
+      height: auto;
+      margin-bottom: 20px;
+     
+    }
+    
+    .banner-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+    }
+    
+    .banner-title {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+    
+    .banner-text {
+      font-size: 16px;
+      margin-bottom: 25px;
+      opacity: 0.9;
+    }
+    
+    .banner-btn {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+      padding: 10px 25px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .banner-btn:hover {
+      background: white;
+      color: var(--primary-color);
+    }
+    
+    /* Decorative Elements */
+    .banner-pattern {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+      background-size: 15px 15px;
+      opacity: 0.3;
+    }
+    
+    /* Forgot Password Link */
+    .forgot-password {
+      display: block;
+      margin-top: 10px;
+      text-align: right;
+      font-size: 14px;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .auth-container {
+        flex-direction: column;
+        max-width: 500px;
+        min-height: auto;
+      }
+      
+      .forms-section, .banner-section {
+        width: 100%;
+      }
+      
+      .banner-section {
+        padding: 30px;
+        order: -1;
+        min-height: 250px;
+      }
+      
+      .forms-section {
+        padding: 30px;
+        min-height: 500px;
+      }
+      
+      .form-container {
+        padding: 30px;
+      }
+      
+      .banner-logo {
+        width: 80px;
+        margin-bottom: 15px;
+      }
+      
+      .banner-title {
+        font-size: 24px;
+      }
+      
+      .banner-text {
+        font-size: 14px;
+        margin-bottom: 20px;
+      }
+      
+      /* Adjust sliding for mobile */
+      #signin-form {
+        transform: translateY(0);
+      }
+      
+      #signup-form, #forgot-form {
+        transform: translateY(120%);
+      }
+      
+      #signin-form.slide-out-left {
+        transform: translateY(-120%);
+      }
+      
+      #signup-form.slide-in-left, #forgot-form.slide-in-left {
+        transform: translateY(0);
+      }
+      
+      #signup-form.slide-out-right, #forgot-form.slide-out-right {
+        transform: translateY(120%);
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .auth-container {
+        border-radius: 10px;
+      }
+      
+      .forms-section, .banner-section {
+        padding: 20px;
+      }
+      
+      .form-container {
+        padding: 20px;
+      }
+      
+      .form-title, .banner-title {
+        font-size: 22px;
+      }
+      
+      .input-field {
+        padding: 10px 15px 10px 40px;
+        font-size: 14px;
+      }
+      
+      .btn {
+        padding: 10px;
+        font-size: 14px;
+      }
+      
+      .banner-logo {
+        width: 70px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-container" id="mainContainer">
+    <!-- Forms Section -->
+    <div class="forms-section">
+      <!-- Sign In Form -->
+      <div class="form-container" id="signin-form">
+        <h1 class="form-title">Sign In</h1>
+        <form id="signin">
+          <div class="input-group">
+            <i class="lni lni-envelope"></i>
+            <input type="email" class="input-field" placeholder="Email Address" required>
+          </div>
+          <div class="input-group">
+            <i class="lni lni-lock"></i>
+            <input type="password" class="input-field" placeholder="Password" required>
+          </div>
+          <a href="#" class="forgot-password toggle-form" data-target="forgot">Forgot password?</a>
+          <button type="submit" class="btn">SIGN IN</button>
+          
+          <div class="form-footer">
+            Don't have an account? <a href="#" class="toggle-form" data-target="signup">Sign up</a>
+          </div>
+        </form>
+      </div>
+      
+      <!-- Sign Up Form -->
+      <div class="form-container" id="signup-form">
+        <h1 class="form-title">Create Account</h1>
+        <form id="signup">
+          <div class="input-group">
+            <i class="lni lni-user"></i>
+            <input type="text" class="input-field" placeholder="Full Name" required>
+          </div>
+          <div class="input-group">
+            <i class="lni lni-envelope"></i>
+            <input type="email" class="input-field" placeholder="Email Address" required>
+          </div>
+          <div class="input-group">
+            <i class="lni lni-lock"></i>
+            <input type="password" class="input-field" placeholder="Password" required>
+          </div>
+          <div class="input-group">
+            <i class="lni lni-lock"></i>
+            <input type="password" class="input-field" placeholder="Confirm Password" required>
+          </div>
+          <button type="submit" class="btn">SIGN UP</button>
+         
+          <div class="form-footer">
+            Already have an account? <a href="#" class="toggle-form" data-target="signin">Sign in</a>
+          </div>
+        </form>
+      </div>
+      
+      <!-- Forgot Password Form -->
+      <div class="form-container" id="forgot-form">
+        <h1 class="form-title">Reset Password</h1>
+        <form id="forgot">
+          <div class="input-group">
+            <i class="lni lni-envelope"></i>
+            <input type="email" class="input-field" placeholder="Email Address" required>
+          </div>
+          <button type="submit" class="btn">RESET PASSWORD</button>
+          <div class="form-footer">
+            <a href="#" class="toggle-form" data-target="signin">Back to sign in</a>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+    <!-- Banner Section -->
+    <div class="banner-section">
+      <div class="banner-pattern"></div>
+      <div class="banner-content">
+        <!-- Replace this with your actual logo -->
+        <img src="campnav.png" alt="Campus Navigation Logo" class="banner-logo">
+        <h2 class="banner-title" id="banner-title">Welcome Back!</h2>
+        <p class="banner-text" id="banner-text">To keep connected with us please login with your personal info</p>
+        <button class="banner-btn" id="banner-btn">Sign Up</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const container = document.getElementById('mainContainer');
+      const bannerTitle = document.getElementById('banner-title');
+      const bannerText = document.getElementById('banner-text');
+      const bannerBtn = document.getElementById('banner-btn');
+      
+      // Forms
+      const signinForm = document.getElementById('signin-form');
+      const signupForm = document.getElementById('signup-form');
+      const forgotForm = document.getElementById('forgot-form');
+      
+      // Toggle buttons
+      const toggleButtons = document.querySelectorAll('.toggle-form');
+      
+      // Current active form
+      let activeForm = 'signin';
+      
+      // Initialize - show signin form
+      signinForm.classList.add('slide-in-right');
+      
+      // Toggle form visibility with sliding animation
+      function showForm(formId) {
+        // Determine animation direction based on current form
+        let currentForm = activeForm;
+        let newForm = formId;
+        
+        // Hide current form with appropriate animation
+        if (currentForm === 'signin') {
+          if (newForm === 'signup' || newForm === 'forgot') {
+            signinForm.classList.remove('slide-in-right');
+            signinForm.classList.add('slide-out-left');
+          }
+        } else {
+          if (newForm === 'signin') {
+            if (currentForm === 'signup') {
+              signupForm.classList.remove('slide-in-left');
+              signupForm.classList.add('slide-out-right');
+            } else if (currentForm === 'forgot') {
+              forgotForm.classList.remove('slide-in-left');
+              forgotForm.classList.add('slide-out-right');
+            }
+          }
+        }
+        
+        // Show new form with appropriate animation
+        setTimeout(() => {
+          if (newForm === 'signin') {
+            signinForm.classList.remove('slide-out-left');
+            signinForm.classList.add('slide-in-right');
+          } else if (newForm === 'signup') {
+            signupForm.classList.remove('slide-out-right');
+            signupForm.classList.add('slide-in-left');
+          } else if (newForm === 'forgot') {
+            forgotForm.classList.remove('slide-out-right');
+            forgotForm.classList.add('slide-in-left');
+          }
+          
+          activeForm = newForm;
+          updateBanner();
+        }, 300); // Match this with the CSS transition duration
+      }
+      
+      // Update banner content based on active form
+      function updateBanner() {
+        if (activeForm === 'signin') {
+          bannerTitle.textContent = 'New Here?';
+          bannerText.textContent = 'Sign up and discover all the features we offer for our community';
+          bannerBtn.textContent = 'Sign Up';
+        } else if (activeForm === 'signup') {
+          bannerTitle.textContent = 'Welcome Back!';
+          bannerText.textContent = 'To keep connected with us please login with your personal info';
+          bannerBtn.textContent = 'Sign In';
+        } else {
+          bannerTitle.textContent = 'Forgot Password?';
+          bannerText.textContent = 'No worries, we\'ll help you reset your password and get back in';
+          bannerBtn.textContent = 'Reset Password';
+        }
+      }
+      
+      // Toggle form when link is clicked
+      toggleButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetForm = this.getAttribute('data-target');
+          showForm(targetForm);
+        });
+      });
+      
+      // Banner button click handler - now toggles correctly between sign in and sign up
+      bannerBtn.addEventListener('click', function() {
+        if (activeForm === 'signin') {
+          showForm('signup');
+        } else if (activeForm === 'signup') {
+          showForm('signin');
+        } else {
+          showForm('signin');
+        }
+      });
+      
+      // Form submission handlers
+      document.getElementById('signin').addEventListener('submit', function(e) {
+        e.preventDefault();
+         window.location.href = "homepage.html";
+      });
+      
+      document.getElementById('signup').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Sign Up functionality would be implemented here');
+      });
+      
+      document.getElementById('forgot').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Password reset link would be sent to your email');
+      });
+    });
+  </script>
+</body>
+</html>

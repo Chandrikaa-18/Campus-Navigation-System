@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Navigation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="FirstPage.css">
+</head>
+<body>
+    <div class="main">
+        <!-- Header -->
+        <nav class="header">
+            <div class="title">
+                <img src="campnav.png" alt="Campus Navigation Logo" class="logo">
+                <h1 class="company" id="animated-title"></h1>
+
+                <script>
+                  document.addEventListener('DOMContentLoaded', function() {
+                    const title = "Campus Navigation"; // Explicit space between words
+                    const container = document.getElementById('animated-title');
+                    
+                    title.split('').forEach((letter, index) => {
+                      const span = document.createElement('span');
+                      span.className = 'letter';
+                      span.style.animationDelay = `${index * 0.1}s`;
+                      
+                      // Handle spaces - use non-breaking space for better rendering
+                      span.innerHTML = letter === ' ' ? '&nbsp;' : letter;
+                      
+                      container.appendChild(span);
+                    });
+                  });
+                </script>
+            </div>
+            <div class="animated-text">
+                <span>Explore</span>
+                <span>Discover</span>
+                <span>Navigate</span>
+            </div>
+            <div class="right">
+                <ul class="list">
+                    <li>Home</li>
+                    <li onclick="scrollToFooter()">Contact</li>
+                    <li onclick="scrollToFeatures()">About</li>
+                </ul>
+                <button class="signin" onclick="window.location.href='SignUp.html'">Sign In</button>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="content">
+                <div class="middle">
+                    <h1 class="welcomee">Hey Explorer! Navigate your campus with ease.</h1>
+                    <h1 class="first">Welcome to </h1>
+                    <p class="third">
+                        <span>Campus</span>
+                        <span>Navigation</span>
+                    </p>
+                    <button type="menu" class="membership">
+                        Start Exploring <svg class="next" xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="black">
+                            <path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content with Black Background -->
+        <div class="main-content-black">
+            <!-- Features Section -->
+            <section class="feature-section" id="features">
+                <div class="feature-box">
+                    <div class="feature-content">
+                        <h2>Campus Navigation</h2>
+                        <p>
+                            Campus navigation is all about making it easy for people to find their way around a college or university. This involves a mix of strategies, from detailed maps and well-placed signage to comprehensive directories and helpful wayfinding apps. Interactive information kiosks and guided tours, both in-person and virtual, also play a key role in familiarizing individuals with the campus layout and essential locations.
+                        </p>
+                    </div>
+                    <div class="feature-video">
+                        <video autoPlay loop muted controls>
+                            <source src="https://v.ftcdn.net/10/37/05/47/240_F_1037054728_kHHS8tbkoacs4AiKGsoFwv9YUUmFje03_ST.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Details Section -->
+            <section class="details-section">
+                <h2>What We Offer</h2>
+                <div class="details-container">
+                    <div class="details-box">
+                        <div class="combined-box">
+                            <h3>Interactive Map</h3>
+                            <p>Explore your campus with a detailed and interactive map.</p>
+                            <img src="https://media.istockphoto.com/id/1266868656/vector/tiny-characters-at-huge-location-map-people-use-online-application-on-smartphone-with.jpg?s=612x612&w=0&k=20&c=1lyybGf2KCpzv-mYpR48Y3YhP3iTjLW-wIZki6p1zuQ=" alt="Map Image">
+                        </div>
+                    </div>
+                    <div class="details-box">
+                        <div class="combined-box">
+                            <h3>Event Schedules</h3>
+                            <p>Stay updated with campus events, workshops, and seminars.</p>
+                            <img src="https://img.freepik.com/premium-vector/label-with-upcoming-events-sign-label-web-design-vector-stock-illustration_100456-11388.jpg" alt="Event Image">
+                        </div>
+                    </div>
+                    <div class="details-box">
+                        <div class="combined-box">
+                            <h3>Resource Locator</h3>
+                            <p>Find libraries, cafeterias, labs, and more with ease.</p>
+                            <img src="https://media.istockphoto.com/id/1343816744/photo/blue-location-symbol-pin-icon-sign-or-navigation-locator-map-travel-gps-direction-pointer-and.jpg?s=612x612&w=0&k=20&c=YxWYvB4ywjKgrDDJUEPcvQXewsnVwBNzKfoef730xoI=" alt="Resource Image">
+                        </div>
+                    </div>
+                    <div class="details-box">
+                        <div class="combined-box">
+                            <h3>Accessibility</h3>
+                            <p>Accessible routes and facilities for differently-abled users.</p>
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUoWBhbCi6nn0CfJ85Xx4FhjOOn9BgPsZ5FQ&s" alt="Accessibility Image">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Campus Prep Section -->
+            <section class="campus-prep">
+                <h2>Available Campuses</h2>
+                <div class="logo-slider">
+                    <div class="logos">
+                        <div class="logo">
+                            <img src="https://assets.thehansindia.com/h-upload/2024/05/27/1449599-vvit.webp" alt="VVIT">
+                            <h3>VVIT</h3>
+                        </div>
+                        <div class="logo">
+                            <img src="https://lh3.googleusercontent.com/proxy/6cxNXeJKEVqPMmHKC0HQjyUC4FiRKk52n8EjuAo5pyY1F_TO8_4-qG1gs7Yut1PwATpJAADz8gEmzGSQgOOtVb724ICcaVECxBekcgJjb5fW5V7tzFB7DW0" alt="RVRJC">
+                            <h3>RVRJC</h3>
+                        </div>
+                        <div class="logo">
+                            <img src="https://cdn.npfs.co/uploads/template/383/5221/publish/images/banner-1.jpg" alt="KLU">
+                            <h3>KLU</h3>
+                        </div>
+                        <div class="logo">
+                            <img src="https://images.shiksha.com/mediadata/images/articles/1584528545phpdljDz1.jpeg" alt="VIT">
+                            <h3>VIT</h3>
+                        </div>
+                        <div class="logo">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/KITS_Warangal.JPG" alt="KITS">
+                            <h3>KITS</h3>
+                        </div>
+                        <div class="logo">
+                            <img src="https://cache.careers360.mobi/media/article_images/2024/6/25/vrsec-vijayawada-management-quota.jpg" alt="VRSEC">
+                            <h3>VRSEC</h3>
+                        </div>
+                        <div class="logo">
+                            <img src="https://assets.collegedunia.com/public/reviewPhotos/1094843/vignan%20university.png" alt="VIGNAN">
+                            <h3>VIGNAN</h3>
+                        </div>
+                        <div class="logo">
+                            <img src="https://www.prestigecityhyderabad.info/images/prestige/acharya-n-g-ranga-agricultural-university.webp" alt="ANCRAU">
+                            <h3>ANCRAU</h3>
+                        </div>
+                        <div class="logo">
+                            <img src="https://images.shiksha.com/mediadata/images/1588244870phpanyulN.jpeg" alt="KHIT">
+                            <h3>KHIT</h3>
+                        </div>
+                        <div class="logo">
+                            <img src="https://collegesamachar.com/uploads/colleges/gallery/99/1647941919campus-view-of-chalapathi-institute-of-technology-gunturcampusview.jpg" alt="CIET">
+                            <h3>CIET</h3>
+                        </div>
+                        <div class="logo">
+                            <img src="https://www.orchidfoundation.info/sites/default/files/2020-10/Malineni%20Lakshmaiah%2C%20College%20of%20Pharmacy.jpg" alt="MALINENI">
+                            <h3>MALINENI</h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ Section -->
+            <section class="faq-container">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faqbox" onclick="toggleFAQ(0)">
+                    <div class="question-box">
+                        <h4>Why Campus Navigation?</h4>
+                        <i class="fas fa-chevron-down icon"></i>
+                    </div>
+                    <div class="answerbox" style="display: none;">
+                        <p>Campus Navigation helps students and visitors explore the campus effortlessly with interactive maps, event schedules, and resource locators.</p>
+                    </div>
+                </div>
+                <div class="faqbox" onclick="toggleFAQ(1)">
+                    <div class="question-box">
+                        <h4>How do I use the interactive map?</h4>
+                        <i class="fas fa-chevron-down icon"></i>
+                    </div>
+                    <div class="answerbox" style="display: none;">
+                        <p>Simply click on the 'Explore Campus Map' button and start navigating through the campus.</p>
+                    </div>
+                </div>
+                <div class="faqbox" onclick="toggleFAQ(2)">
+                    <div class="question-box">
+                        <h4>Is Campus Navigation free?</h4>
+                        <i class="fas fa-chevron-down icon"></i>
+                    </div>
+                    <div class="answerbox" style="display: none;">
+                        <p>Yes, Campus Navigation is completely free for all users.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer Section -->
+            <footer class="footer" id="footer">
+                <div class="footer-content">
+                    <div class="quick-links">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="#about">About Us</a></li>
+                            <li><a href="#privacy">Privacy Policy</a></li>
+                            <li><a href="#terms">Terms of Service</a></li>
+                            <li><a href="#contact">Contact Us</a></li>
+                        </ul>
+                    </div>
+                    <div class="social-media">
+                        <h3>Follow Us</h3>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <div class="newsletter">
+                        <h3>Contact through our Mail</h3>
+                        <p>Mail: campusnav@gmail.com</p>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2023 CampusNav. All rights reserved.</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for FAQ functionality and smooth scrolling
+        function toggleFAQ(index) {
+            const faqbox = document.querySelectorAll('.faqbox')[index];
+            const answerbox = faqbox.querySelector('.answerbox');
+            const icon = faqbox.querySelector('.icon');
+            
+            if (answerbox.style.display === 'block') {
+                answerbox.style.display = 'none';
+                icon.classList.remove('active');
+            } else {
+                answerbox.style.display = 'block';
+                icon.classList.add('active');
+            }
+        }
+
+        function scrollToFeatures() {
+            document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToFooter() {
+            document.getElementById('footer').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Initialize letter animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const letters = document.querySelectorAll('.letter');
+            letters.forEach((letter, index) => {
+                letter.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+    </script>
+</body>
+</html>
